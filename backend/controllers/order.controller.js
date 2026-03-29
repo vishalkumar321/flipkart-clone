@@ -15,9 +15,16 @@ const placeOrder = async (req, res) => {
   const userId = req.user.id;
   const { addressId, paymentMethod = 'COD' } = req.body;
 
-  // Validate address
+  // 1. Basic Request Validation
   if (!addressId) {
     const error = new Error('Please select a delivery address');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const validPaymentMethods = ['COD', 'CARD', 'UPI', 'NETBANKING'];
+  if (!validPaymentMethods.includes(paymentMethod)) {
+    const error = new Error('Invalid payment method selected');
     error.statusCode = 400;
     throw error;
   }

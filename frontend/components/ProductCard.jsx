@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { FiStar, FiHeart } from 'react-icons/fi';
 import { useWishlist } from '@/context/WishlistContext';
+import { FALLBACK_IMAGE } from '@/utils/constants';
 
 export default function ProductCard({ product }) {
   const { isInWishlist, toggleWishlist } = useWishlist();
@@ -51,6 +52,7 @@ export default function ProductCard({ product }) {
           <img 
             src={displayImage.startsWith('/') ? `${process.env.NEXT_PUBLIC_API_URL.replace('/api', '')}${displayImage}` : displayImage} 
             alt={product.title} 
+            onError={(e) => { e.target.onerror = null; e.target.src = FALLBACK_IMAGE; }}
             style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain', filter: product.stock === 0 ? 'grayscale(1)' : 'none' }} 
           />
           {product.stock === 0 && (

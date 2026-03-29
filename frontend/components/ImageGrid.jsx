@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { FiX, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FALLBACK_IMAGE } from '@/utils/constants';
 
 /**
  * ImageGrid - Displays an interactive product image gallery.
@@ -56,6 +57,7 @@ export default function ImageGrid({ images = [] }) {
         <img 
           src={getImageUrl(currentImage)} 
           alt={`Product view ${selectedIndex + 1}`} 
+          onError={(e) => { e.target.onerror = null; e.target.src = FALLBACK_IMAGE; }}
           style={{ 
             width: '100%', 
             height: '100%', 
@@ -108,6 +110,7 @@ export default function ImageGrid({ images = [] }) {
               <img 
                 src={getImageUrl(img)} 
                 alt={`Thumbnail ${idx + 1}`} 
+                onError={(e) => { e.target.onerror = null; e.target.src = FALLBACK_IMAGE; }}
                 style={{ width: '85%', height: '85%', objectFit: 'contain' }} 
               />
             </div>
@@ -144,6 +147,7 @@ export default function ImageGrid({ images = [] }) {
             <img 
               src={getImageUrl(currentImage)} 
               alt="Full Size View" 
+              onError={(e) => { e.target.onerror = null; e.target.src = FALLBACK_IMAGE; }}
               style={{ maxWidth: '100%', maxHeight: '90vh', objectFit: 'contain' }} 
             />
             
