@@ -1,26 +1,22 @@
 import api from './axios';
+import { fetchWithRetry } from './apiUtils';
 
 export const getCart = async () => {
-  const res = await api.get('/cart');
-  return res.data;
+  return await fetchWithRetry(() => api.get('/cart'));
 };
 
 export const addToCart = async (productId, quantity = 1) => {
-  const res = await api.post('/cart/add', { productId, quantity });
-  return res.data;
+  return await fetchWithRetry(() => api.post('/cart/add', { productId, quantity }));
 };
 
 export const updateCart = async (cartItemId, quantity) => {
-  const res = await api.put('/cart/update', { cartItemId, quantity });
-  return res.data;
+  return await fetchWithRetry(() => api.put('/cart/update', { cartItemId, quantity }));
 };
 
 export const removeFromCart = async (cartItemId) => {
-  const res = await api.delete('/cart/remove', { data: { cartItemId } });
-  return res.data;
+  return await fetchWithRetry(() => api.delete('/cart/remove', { data: { cartItemId } }));
 };
 
 export const clearCart = async () => {
-  const res = await api.delete('/cart/clear');
-  return res.data;
+  return await fetchWithRetry(() => api.delete('/cart/clear'));
 };

@@ -1,16 +1,14 @@
 import api from './axios';
+import { fetchWithRetry } from './apiUtils';
 
 export const placeOrder = async (orderData) => {
-  const res = await api.post('/orders', orderData);
-  return res.data;
+  return await fetchWithRetry(() => api.post('/orders', orderData));
 };
 
 export const getOrders = async (params = {}) => {
-  const res = await api.get('/orders', { params });
-  return res.data;
+  return await fetchWithRetry(() => api.get('/orders', { params }));
 };
 
 export const getOrderById = async (id) => {
-  const res = await api.get(`/orders/${id}`);
-  return res.data;
+  return await fetchWithRetry(() => api.get(`/orders/${id}`));
 };

@@ -1,37 +1,32 @@
 import api from './axios';
+import { fetchWithRetry } from './apiUtils';
 
 /** Register a new user */
 export const register = async (data) => {
-  const res = await api.post('/auth/register', data);
-  return res.data;
+  return await fetchWithRetry(() => api.post('/auth/register', data));
 };
 
 /** Login with email/password */
 export const login = async (data) => {
-  const res = await api.post('/auth/login', data);
-  return res.data;
+  return await fetchWithRetry(() => api.post('/auth/login', data));
 };
 
 /** Get current user profile */
 export const getMe = async () => {
-  const res = await api.get('/auth/me');
-  return res.data;
+  return await fetchWithRetry(() => api.get('/auth/me'));
 };
 
 /** Update user profile */
 export const updateProfile = async (data) => {
-  const res = await api.put('/auth/profile', data);
-  return res.data;
+  return await fetchWithRetry(() => api.put('/auth/profile', data));
 };
 
 /** Send OTP to mobile */
 export const sendOTP = async (phone) => {
-  const res = await api.post('/auth/send-otp', { phone });
-  return res.data;
+  return await fetchWithRetry(() => api.post('/auth/send-otp', { phone }));
 };
 
 /** Verify OTP and login/register */
 export const verifyOTP = async (phone, otp) => {
-  const res = await api.post('/auth/verify-otp', { phone, otp });
-  return res.data;
+  return await fetchWithRetry(() => api.post('/auth/verify-otp', { phone, otp }));
 };

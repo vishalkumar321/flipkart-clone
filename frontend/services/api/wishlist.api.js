@@ -1,16 +1,14 @@
 import api from './axios';
+import { fetchWithRetry } from './apiUtils';
 
 export const getWishlist = async () => {
-  const res = await api.get('/wishlist');
-  return res.data;
+  return await fetchWithRetry(() => api.get('/wishlist'));
 };
 
 export const toggleWishlist = async (productId) => {
-  const res = await api.post('/wishlist', { productId });
-  return res.data;
+  return await fetchWithRetry(() => api.post('/wishlist', { productId }));
 };
 
 export const removeFromWishlist = async (productId) => {
-  const res = await api.delete(`/wishlist/${productId}`);
-  return res.data;
+  return await fetchWithRetry(() => api.delete(`/wishlist/${productId}`));
 };

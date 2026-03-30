@@ -1,43 +1,37 @@
 import api from './axios';
+import { fetchWithRetry } from './apiUtils';
 
 /** Fetch products with optional filters */
 export const getProducts = async (params = {}) => {
-  const res = await api.get('/products', { params });
-  return res.data;
+  return await fetchWithRetry(() => api.get('/products', { params }));
 };
 
 /** Fetch a single product by ID */
 export const getProductById = async (id) => {
-  const res = await api.get(`/products/${id}`);
-  return res.data;
+  return await fetchWithRetry(() => api.get(`/products/${id}`));
 };
 
 /** Fetch featured products */
 export const getFeaturedProducts = async () => {
-  const res = await api.get('/products/featured');
-  return res.data;
+  return await fetchWithRetry(() => api.get('/products/featured'));
 };
 
 /** Fetch all categories */
 export const getCategories = async () => {
-  const res = await api.get('/products/categories');
-  return res.data;
+  return await fetchWithRetry(() => api.get('/products/categories'));
 };
 
 /** Fetch all unique brands */
 export const getBrands = async () => {
-  const res = await api.get('/products/brands');
-  return res.data;
+  return await fetchWithRetry(() => api.get('/products/brands'));
 };
 
 /** Fetch dynamic specs and brands for a specific category or search */
 export const getDynamicFilters = async (params = {}) => {
-  const res = await api.get('/products/filters', { params });
-  return res.data;
+  return await fetchWithRetry(() => api.get('/products/filters', { params }));
 };
 
 /** Fetch the Home page layout with categorized products */
 export const getHomeLayout = async () => {
-  const res = await api.get('/products/home-layout');
-  return res.data;
+  return await fetchWithRetry(() => api.get('/products/home-layout'));
 };
